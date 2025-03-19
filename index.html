@@ -54,16 +54,20 @@
     .svg-animation {
       margin-top: 20px;
     }
-    .skills, .projects {
+    .skills, .projects, .education, .experience {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
     }
-    .skills div, .projects div {
+    .skills div, .projects div, .education div, .experience div {
       margin: 20px;
       padding: 20px;
       background: rgba(0, 0, 0, 0.7);
       border-radius: 10px;
+      text-align: left;
+    }
+    h3 {
+      color: #fdbb2d;
     }
 
     /* Footer */
@@ -101,13 +105,15 @@
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
     <a href="#contact">Contact</a>
   </nav>
 
   <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
-    <p>With a rich journey in software development, I specialize in building innovative solutions and optimizing user experience.</p>
+    <p>A Senior .NET Developer with expertise in crafting innovative solutions and collaborating across teams to achieve business goals. Committed to continuous learning and excellence.</p>
     <div class="svg-animation">
       <svg class="line-draw" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
         <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" />
@@ -121,7 +127,7 @@
     <div class="skills">
       <div>
         <h3>Front-End</h3>
-        <p>HTML, CSS, JavaScript, jQuery</p>
+        <p>HTML, CSS, JavaScript, jQuery, KnockoutJS</p>
       </div>
       <div>
         <h3>Back-End</h3>
@@ -129,7 +135,7 @@
       </div>
       <div>
         <h3>UI/UX</h3>
-        <p>KnockoutJS, Telerik, Razor</p>
+        <p>Telerik, Razor, Bootstrap</p>
       </div>
     </div>
   </section>
@@ -140,15 +146,49 @@
     <div class="projects">
       <div>
         <h3>JoTrack System</h3>
-        <p>Transportation management solution using ASP.NET and C#.</p>
+        <p>Transportation management solution developed with ASP.NET and C#, collaborating closely with stakeholders to meet goals.</p>
       </div>
       <div>
         <h3>Arduino Project</h3>
-        <p>Designed and tested a hardware solution aligned with business goals.</p>
+        <p>Designed and tested a hardware solution by documenting processes and aligning with stakeholder requirements.</p>
       </div>
       <div>
         <h3>ERP Application</h3>
-        <p>Built an ERP web application for effective business management.</p>
+        <p>Built a robust ERP web application to streamline business operations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div class="experience">
+      <div>
+        <h3>Sama Telecom</h3>
+        <p>Led the development of the JoTrack System, a transportation management project using ASP.NET and modern technologies.</p>
+      </div>
+      <div>
+        <h3>Minerets Tech</h3>
+        <p>Guided software project discussions, mentored junior developers, and ensured high-quality solutions through testing.</p>
+      </div>
+      <div>
+        <h3>Freelance Projects</h3>
+        <p>Executed an Arduino project and aligned solutions with stakeholders' business goals through thorough testing and development.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education">
+    <h2>Education</h2>
+    <div class="education">
+      <div>
+        <h3>Master's Degree</h3>
+        <p>German Jordanian University (2020–2024): Thesis on *"Machine Learning Approach for Cluster Head Selection in IoT-Based Wireless Sensor Network."*</p>
+      </div>
+      <div>
+        <h3>Bachelor's Degree</h3>
+        <p>University of Jordan (2010–2015): Bachelor's in Computer Science.</p>
       </div>
     </div>
   </section>
