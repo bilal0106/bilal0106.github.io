@@ -1,126 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilal Al Mohammad - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #f4f4f4;
-        }
-        .hero {
-            height: 100vh;
-            background: linear-gradient(to right, #2c3e50, #4ca1af);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            animation: fadeIn 1.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .section {
-            padding: 60px 0;
-            text-align: center;
-        }
-        .navbar {
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .animated-button {
-            transition: transform 0.3s;
-        }
-        .animated-button:hover {
-            transform: scale(1.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Animation</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      font-family: Arial, sans-serif;
+    }
+
+    .svg-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pulse-circle {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        r: 40; /* Original radius */
+        fill: #00d4ff; /* Original color */
+      }
+      50% {
+        r: 50; /* Expanded radius */
+        fill: #00a3cc; /* Lighter color */
+      }
+    }
+
+    h1 {
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Bilal Al Mohammad</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#research">Research</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <div>
-            <h1>Welcome to My Portfolio</h1>
-            <p>Showcasing my skills in design, programming, and research</p>
-            <a href="ResumeBilalAlMohammad.pdf" class="btn btn-light animated-button" download>Download CV</a>
-        </div>
-    </div>
-
-    <section id="about" class="section">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Senior .NET Developer with expertise in modern web technologies, cloud solutions, and software architecture.</p>
-        </div>
-    </section>
-
-    <section id="education" class="section bg-light">
-        <div class="container">
-            <h2>Education</h2>
-            <p><strong>Master's Degree in Computer Engineering</strong><br>German Jordanian University (2020 - 2024)</p>
-        </div>
-    </section>
-
-    <section id="experience" class="section">
-        <div class="container">
-            <h2>Work Experience</h2>
-            <p><strong>Senior Software Developer - Sama Telecom (2024 - Present)</strong><br>Worked on the JoTrack System, a transportation management platform, using ASP.NET, C#, and cloud technologies.</p>
-            <p><strong>Senior Software Developer - Minerets Tech (2021 - 2022)</strong><br>Led software project discussions, mentored junior developers, and improved software testing practices.</p>
-            <p><strong>Senior Software Developer - Omicron Solutions (2019 - 2020)</strong><br>Developed high-quality software architecture, worked on management projects, and enhanced system performance.</p>
-            <p><strong>.NET Developer - Acacus Group (2017 - 2019)</strong><br>Contributed to a transportation system project, collaborated with stakeholders, and optimized business processes.</p>
-            <p><strong>.NET Developer - Atlas Group Limited (2015 - 2016)</strong><br>Developed a web application for questions and answers with multimedia support, improving data structuring.</p>
-        </div>
-    </section>
-
-    <section id="skills" class="section bg-light">
-        <div class="container">
-            <h2>Technical Skills</h2>
-            <p>Programming: C#, Java, JavaScript, SQL, TypeScript</p>
-            <p>Web Development: ASP.NET Core, MVC, Blazor, Knockout.js, Kendo UI</p>
-            <p>Database Management: SQL Server, MySQL</p>
-            <p>Cloud & DevOps: Azure, AWS, Entity Framework</p>
-        </div>
-    </section>
-
-    <section id="research" class="section">
-        <div class="container">
-            <h2>Research</h2>
-            <p><strong>Machine Learning Approach for Cluster Head Selection in IoT-Based WSN</strong></p>
-            <p>My thesis focuses on optimizing energy consumption in Wireless Sensor Networks (WSNs) using Machine Learning to enhance Cluster Head selection for IoT applications.</p>
-        </div>
-    </section>
-
-    <section id="contact" class="section bg-light">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>Email: Bilal.dandashi.92@gmail.com</p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8ba3/">Profile</a></p>
-        </div>
-    </section>
+  <div class="svg-container">
+    <h1>Welcome to My Portfolio</h1>
+    <svg width="200" height="200">
+      <circle
+        class="pulse-circle"
+        cx="100"
+        cy="100"
+        r="40"
+        fill="#00d4ff"
+      />
+    </svg>
+  </div>
 </body>
 </html>
