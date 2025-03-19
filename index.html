@@ -122,6 +122,44 @@
         opacity: 1;
       }
     }
+
+/* Slider Styling */
+  .slider-container {
+    position: relative;
+    max-width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  .slide {
+    min-width: 100%;
+  }
+  .slide img {
+    width: 100%;
+    display: block;
+  }
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .prev {
+    left: 10px;
+  }
+  .next {
+    right: 10px;
+  }
+    
   </style>
 </head>
 <body>
@@ -141,6 +179,20 @@
     <a href="#contact">Contact</a>
   </nav>
 
+
+<section id="slider">
+  <h2>Highlight Slider</h2>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide"><img src="image1.jpg" alt="JoTrack System"></div>
+      <div class="slide"><img src="image2.jpg" alt="Arduino Project"></div>
+      <div class="slide"><img src="image3.jpg" alt="ERP Application"></div>
+    </div>
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+</section>
+  
   <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
@@ -310,3 +362,17 @@
         <tr>
           <th>LinkedIn</th>
           <td><a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8
+
+
+<script>
+  let currentIndex = 0;
+
+  function moveSlide(direction) {
+    const slider = document.querySelector('.slider');
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+</script>
