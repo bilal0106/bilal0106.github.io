@@ -12,35 +12,43 @@
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       line-height: 1.6;
-      background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
       color: #fff;
+      overflow-x: hidden;
     }
     header {
       text-align: center;
       padding: 50px 20px;
       background: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 1.5s ease-in-out;
     }
     header h1 {
       font-size: 3em;
       margin-bottom: 20px;
+      animation: slideDown 1.5s ease-in-out;
     }
     header p {
       font-size: 1.2em;
+      animation: slideUp 1.5s ease-in-out;
     }
 
     /* Navigation Bar */
     nav {
+      position: sticky;
+      top: 0;
       background: rgba(0, 0, 0, 0.8);
       padding: 15px;
       text-align: center;
+      z-index: 1000;
     }
     nav a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
       font-size: 1.2em;
+      transition: color 0.3s ease;
     }
     nav a:hover {
       color: #fdbb2d;
@@ -50,9 +58,7 @@
     section {
       padding: 50px 20px;
       text-align: center;
-    }
-    .svg-animation {
-      margin-top: 20px;
+      position: relative;
     }
     .skills, .projects, .education, .experience {
       display: flex;
@@ -65,9 +71,29 @@
       background: rgba(0, 0, 0, 0.7);
       border-radius: 10px;
       text-align: left;
+      position: relative;
+      animation: fadeInScale 2s ease-in-out;
+    }
+    .skills div:hover, .projects div:hover, .education div:hover, .experience div:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     h3 {
       color: #fdbb2d;
+    }
+
+    /* SVG Animation */
+    .svg-animation svg {
+      margin: 20px auto;
+      display: block;
+      max-width: 80px;
+      stroke: #fff;
+      fill: transparent;
+      stroke-width: 3;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: draw 2s linear forwards infinite alternate;
     }
 
     /* Footer */
@@ -75,19 +101,53 @@
       text-align: center;
       padding: 20px;
       background: rgba(0, 0, 0, 0.9);
+      animation: fadeIn 3s ease-in-out;
     }
 
-    /* Animation */
-    .line-draw path {
-      stroke: #fff;
-      fill: transparent;
-      stroke-width: 3;
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      animation: draw 2s linear forwards;
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes fadeInScale {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
     @keyframes draw {
-      to {
+      0% {
+        stroke-dashoffset: 300;
+      }
+      100% {
         stroke-dashoffset: 0;
       }
     }
@@ -113,10 +173,10 @@
   <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
-    <p>A Senior .NET Developer with expertise in crafting innovative solutions and collaborating across teams to achieve business goals. Committed to continuous learning and excellence.</p>
+    <p>A Senior .NET Developer dedicated to delivering cutting-edge solutions and fostering innovation across projects.</p>
     <div class="svg-animation">
-      <svg class="line-draw" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" />
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 50 Q 50 10 90 50 T 90 50" />
       </svg>
     </div>
   </section>
@@ -127,7 +187,7 @@
     <div class="skills">
       <div>
         <h3>Front-End</h3>
-        <p>HTML, CSS, JavaScript, jQuery, KnockoutJS</p>
+        <p>HTML, CSS, JavaScript, KnockoutJS, jQuery</p>
       </div>
       <div>
         <h3>Back-End</h3>
@@ -135,7 +195,7 @@
       </div>
       <div>
         <h3>UI/UX</h3>
-        <p>Telerik, Razor, Bootstrap</p>
+        <p>Razor, Telerik, Bootstrap</p>
       </div>
     </div>
   </section>
@@ -146,15 +206,15 @@
     <div class="projects">
       <div>
         <h3>JoTrack System</h3>
-        <p>Transportation management solution developed with ASP.NET and C#, collaborating closely with stakeholders to meet goals.</p>
+        <p>Developed a transportation management system using ASP.NET, collaborating closely with stakeholders to meet business goals.</p>
       </div>
       <div>
         <h3>Arduino Project</h3>
-        <p>Designed and tested a hardware solution by documenting processes and aligning with stakeholder requirements.</p>
+        <p>Designed a hardware and software solution to align with stakeholder requirements through rigorous testing and development.</p>
       </div>
       <div>
         <h3>ERP Application</h3>
-        <p>Built a robust ERP web application to streamline business operations.</p>
+        <p>Built an enterprise resource planning web app, streamlining business operations effectively.</p>
       </div>
     </div>
   </section>
@@ -165,15 +225,11 @@
     <div class="experience">
       <div>
         <h3>Sama Telecom</h3>
-        <p>Led the development of the JoTrack System, a transportation management project using ASP.NET and modern technologies.</p>
+        <p>Contributed to ASP.NET projects with a focus on high-quality solutions tailored to stakeholder needs.</p>
       </div>
       <div>
         <h3>Minerets Tech</h3>
-        <p>Guided software project discussions, mentored junior developers, and ensured high-quality solutions through testing.</p>
-      </div>
-      <div>
-        <h3>Freelance Projects</h3>
-        <p>Executed an Arduino project and aligned solutions with stakeholders' business goals through thorough testing and development.</p>
+        <p>Led software projects, mentoring junior developers and ensuring seamless execution through testing.</p>
       </div>
     </div>
   </section>
@@ -184,11 +240,11 @@
     <div class="education">
       <div>
         <h3>Master's Degree</h3>
-        <p>German Jordanian University (2020–2024): Thesis on *"Machine Learning Approach for Cluster Head Selection in IoT-Based Wireless Sensor Network."*</p>
+        <p>German Jordanian University - Thesis: "Machine Learning Approach for Cluster Head Selection in IoT-Based Wireless Sensor Network."</p>
       </div>
       <div>
         <h3>Bachelor's Degree</h3>
-        <p>University of Jordan (2010–2015): Bachelor's in Computer Science.</p>
+        <p>University of Jordan - Bachelor's in Computer Science.</p>
       </div>
     </div>
   </section>
