@@ -54,46 +54,35 @@
       color: #fdbb2d;
     }
 
-    /* Section Styles */
+    /* Section Styling */
     section {
       padding: 50px 20px;
       text-align: center;
       position: relative;
     }
-    .skills, .projects, .education, .experience {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    .skills div, .projects div, .education div, .experience div {
-      margin: 20px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.7);
+    table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
       border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px;
       text-align: left;
-      position: relative;
-      animation: fadeInScale 2s ease-in-out;
     }
-    .skills div:hover, .projects div:hover, .education div:hover, .experience div:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    th {
+      background: #fdbb2d;
+      color: #000;
     }
-    h3 {
-      color: #fdbb2d;
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.1);
     }
-
-    /* SVG Animation */
-    .svg-animation svg {
-      margin: 20px auto;
-      display: block;
-      max-width: 80px;
-      stroke: #fff;
-      fill: transparent;
-      stroke-width: 3;
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      animation: draw 2s linear forwards infinite alternate;
+    tr:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transition: background 0.3s ease;
     }
 
     /* Footer */
@@ -133,24 +122,6 @@
         opacity: 1;
       }
     }
-    @keyframes fadeInScale {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-    @keyframes draw {
-      0% {
-        stroke-dashoffset: 300;
-      }
-      100% {
-        stroke-dashoffset: 0;
-      }
-    }
   </style>
 </head>
 <body>
@@ -173,130 +144,154 @@
   <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
-    <p>A Senior .NET Developer dedicated to delivering cutting-edge solutions and fostering innovation across projects.</p>
-    <div class="svg-animation">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 50 Q 50 10 90 50 T 90 50" />
-      </svg>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <th>Summary</th>
+          <td>A dedicated Senior .NET Developer with expertise in innovative solutions and a commitment to excellence.</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>Bilal.dandashi.92@gmail.com</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>0799612170</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- Skills Section -->
   <section id="skills">
     <h2>My Skills</h2>
-    <div class="skills">
-      <div>
-        <h3>Front-End</h3>
-        <p>HTML, CSS, JavaScript, KnockoutJS, jQuery</p>
-      </div>
-      <div>
-        <h3>Back-End</h3>
-        <p>ASP.NET Core, Node.js, SQL Server</p>
-      </div>
-      <div>
-        <h3>UI/UX</h3>
-        <p>Razor, Telerik, Bootstrap</p>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Skills</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Front-End</td>
+          <td>HTML, CSS, JavaScript, KnockoutJS, jQuery</td>
+        </tr>
+        <tr>
+          <td>Back-End</td>
+          <td>ASP.NET Core, Node.js, SQL Server</td>
+        </tr>
+        <tr>
+          <td>UI/UX</td>
+          <td>Razor, Telerik, Bootstrap</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- Projects Section -->
   <section id="projects">
     <h2>Key Projects</h2>
-    <div class="projects">
-      <div>
-        <h3>JoTrack System</h3>
-        <p>Developed a transportation management system using ASP.NET, collaborating closely with stakeholders to meet business goals.</p>
-      </div>
-      <div>
-        <h3>Arduino Project</h3>
-        <p>Designed a hardware and software solution to align with stakeholder requirements through rigorous testing and development.</p>
-      </div>
-      <div>
-        <h3>ERP Application</h3>
-        <p>Built an enterprise resource planning web app, streamlining business operations effectively.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience Section -->
-  <section id="experience">
-  <h2>Professional Experience</h2>
-  <div style="overflow-x:auto;">
-    <table style="width: 100%; border-collapse: collapse; margin: 20px auto; text-align: left; background: rgba(0, 0, 0, 0.7); color: #fff; border-radius: 10px; overflow: hidden;">
+    <table>
       <thead>
-        <tr style="background-color: #fdbb2d; color: #000;">
-          <th style="padding: 10px;">Position</th>
-          <th style="padding: 10px;">Company</th>
-          <th style="padding: 10px;">Duration</th>
-          <th style="padding: 10px;">Description</th>
+        <tr>
+          <th>Project</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td style="padding: 10px;">Senior Software Developer</td>
-          <td style="padding: 10px;">Sama Telecom</td>
-          <td style="padding: 10px;">Dec 2024 - Present</td>
-          <td style="padding: 10px;">
-            Contributed to JoTrack System using ASP.NET and C#. Collaborated with stakeholders to gather business requirements, ensuring the software lifecycle aligned with goals.
-          </td>
+          <td>JoTrack System</td>
+          <td>Developed a transportation management system using ASP.NET and C#, collaborating with stakeholders to align with goals.</td>
         </tr>
         <tr>
-          <td style="padding: 10px;">Freelance Developer</td>
-          <td style="padding: 10px;">Self-Employed</td>
-          <td style="padding: 10px;">Apr 2023 - Aug 2023</td>
-          <td style="padding: 10px;">
-            Executed an Arduino project and collaborated with stakeholders to design and test solutions aligned with business needs.
-          </td>
+          <td>Arduino Project</td>
+          <td>Designed and tested a hardware-software solution aligned with stakeholder requirements.</td>
         </tr>
         <tr>
-          <td style="padding: 10px;">Software Developer</td>
-          <td style="padding: 10px;">Minerets Tech</td>
-          <td style="padding: 10px;">Mar 2021 - Dec 2022</td>
-          <td style="padding: 10px;">
-            Led project discussions, mentored junior developers, and ensured solutions met requirements through effective testing practices.
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 10px;">Junior Software Developer</td>
-          <td style="padding: 10px;">Acacus Group</td>
-          <td style="padding: 10px;">Jan 2017 - Aug 2019</td>
-          <td style="padding: 10px;">
-            Contributed to a transportation system project and collaborated with stakeholders to align development with objectives.
-          </td>
+          <td>ERP Application</td>
+          <td>Built an enterprise resource planning web app to streamline business operations.</td>
         </tr>
       </tbody>
     </table>
-  </div>
-</section>
+  </section>
 
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Duration</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Senior Software Developer</td>
+            <td>Sama Telecom</td>
+            <td>Dec 2024 - Present</td>
+            <td>Contributed to JoTrack System using ASP.NET, collaborating with stakeholders to align with business goals.</td>
+          </tr>
+          <tr>
+            <td>Freelance Developer</td>
+            <td>Self-Employed</td>
+            <td>Apr 2023 - Aug 2023</td>
+            <td>Executed Arduino projects to meet stakeholder requirements through design and testing.</td>
+          </tr>
+          <tr>
+            <td>Senior Software Developer</td>
+            <td>Minerets Tech</td>
+            <td>Mar 2021 - Dec 2022</td>
+            <td>Led project discussions, mentoring junior developers, and ensured delivery of effective software solutions.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <!-- Education Section -->
   <section id="education">
     <h2>Education</h2>
-    <div class="education">
-      <div>
-        <h3>Master's Degree</h3>
-        <p>German Jordanian University - Thesis: "Machine Learning Approach for Cluster Head Selection in IoT-Based Wireless Sensor Network."</p>
-      </div>
-      <div>
-        <h3>Bachelor's Degree</h3>
-        <p>University of Jordan - Bachelor's in Computer Science.</p>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Degree</th>
+          <th>Institution</th>
+          <th>Years</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Master's Degree in Computer Science</td>
+          <td>German Jordanian University</td>
+          <td>2020 - 2024</td>
+        </tr>
+        <tr>
+          <td>Bachelor's Degree in Computer Science</td>
+          <td>University of Jordan</td>
+          <td>2010 - 2015</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Me</h2>
-    <p>Email: Bilal.dandashi.92@gmail.com</p>
-    <p>Phone: 0799612170</p>
-    <p><a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8ba3/" target="_blank">LinkedIn</a></p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Belal Al Mohammad. All Rights Reserved.</p>
-  </footer>
-</body>
-</html>
+    <table>
+      <tbody>
+        <tr>
+          <th>Email</th>
+          <td>Bilal.dandashi.92@gmail.com</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>0799612170</td>
+        </tr>
+        <tr>
+          <th>LinkedIn</th>
+          <td><a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8
