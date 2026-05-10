@@ -22,12 +22,23 @@
 </head>
 
 <body>
+    <!-- Radical Design Elements -->
+    <canvas id="living-background"></canvas>
+    
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+        </filter>
+    </svg>
 
-    <!-- Background Animation Elements -->
-    <div class="bg-elements">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-    </div>
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -50,7 +61,7 @@
             <div class="hero-content reveal">
                 <h2 class="hero-greeting">Hello, I'm</h2>
                 <h1 class="hero-name">Belal <span class="text-gradient">Al Mohammad</span></h1>
-                <h3 class="hero-title">Senior .NET Developer</h3>
+                <h3 class="hero-title"><span class="typewriter" data-text="Senior .NET Developer"></span><span class="cursor-blink">|</span></h3>
                 <p class="hero-description">
                     Dedicated to quality, innovation, and continuous learning in software development.
                     Building scalable enterprise solutions and leading backend architectures.
@@ -61,20 +72,65 @@
                 </div>
             </div>
             <div class="hero-visual reveal-right">
-                <!-- Abstract visual representation instead of a photo for now -->
-                <div class="abstract-shape">
-                    <div class="shape-inner">
-                        <i class="ph ph-code size-large"></i>
-                    </div>
-                </div>
+                <svg class="hero-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:400px; filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#06b6d4" />
+                            <stop offset="100%" stop-color="#8b5cf6" />
+                        </linearGradient>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <path fill="url(#grad1)" filter="url(#glow)" transform="translate(100 100)"
+                        d="M45,-76.4C58,-68.8,68,-54.2,76.5,-39.2C85,-24.2,92,-8.8,88.7,4.6C85.4,18,71.8,29.4,60.5,41.2C49.2,53,40.2,65.2,27.5,73.1C14.8,81,-1.6,84.6,-17.1,81.1C-32.6,77.6,-47.2,67,-59.4,54C-71.6,41,-81.4,25.6,-84.9,9C-88.4,-7.6,-85.6,-25.4,-76,-40.1C-66.4,-54.8,-50,-66.4,-34.5,-73C-19,-79.6,-4.4,-81.2,11.2,-81.6C26.8,-82,41.2,-80.6,45,-76.4Z">
+                        <animate attributeName="d" dur="8s" repeatCount="indefinite"
+                            values="
+                            M45,-76.4C58,-68.8,68,-54.2,76.5,-39.2C85,-24.2,92,-8.8,88.7,4.6C85.4,18,71.8,29.4,60.5,41.2C49.2,53,40.2,65.2,27.5,73.1C14.8,81,-1.6,84.6,-17.1,81.1C-32.6,77.6,-47.2,67,-59.4,54C-71.6,41,-81.4,25.6,-84.9,9C-88.4,-7.6,-85.6,-25.4,-76,-40.1C-66.4,-54.8,-50,-66.4,-34.5,-73C-19,-79.6,-4.4,-81.2,11.2,-81.6C26.8,-82,41.2,-80.6,45,-76.4Z;
+                            M37.6,-66C49.8,-59,61.5,-50,69,-38.3C76.5,-26.6,79.8,-12.3,77.6,1.4C75.4,15.1,67.7,28.2,58.3,40C48.9,51.8,37.8,62.3,23.8,69.5C9.8,76.7,-7.1,80.6,-22.4,76.2C-37.7,71.8,-51.4,59.1,-62.4,44.5C-73.4,29.9,-81.7,13.4,-82.3,-3.3C-82.9,-20,-75.8,-36.9,-63.7,-49.4C-51.6,-61.9,-34.5,-70,-18.2,-72.6C-1.9,-75.2,13.6,-72.3,25.4,-73C37.2,-73.7,47.3,-69,37.6,-66Z;
+                            M45,-76.4C58,-68.8,68,-54.2,76.5,-39.2C85,-24.2,92,-8.8,88.7,4.6C85.4,18,71.8,29.4,60.5,41.2C49.2,53,40.2,65.2,27.5,73.1C14.8,81,-1.6,84.6,-17.1,81.1C-32.6,77.6,-47.2,67,-59.4,54C-71.6,41,-81.4,25.6,-84.9,9C-88.4,-7.6,-85.6,-25.4,-76,-40.1C-66.4,-54.8,-50,-66.4,-34.5,-73C-19,-79.6,-4.4,-81.2,11.2,-81.6C26.8,-82,41.2,-80.6,45,-76.4Z" />
+                    </path>
+                    <circle cx="100" cy="100" r="50" fill="none" stroke="#fff" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.3">
+                        <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="10 5" opacity="0.5">
+                        <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="15s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="40" cy="40" r="3" fill="#fff" opacity="0.6">
+                        <animate attributeName="cy" values="40;20;40" dur="4s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="160" cy="140" r="4" fill="#06b6d4" opacity="0.8">
+                        <animate attributeName="cy" values="140;160;140" dur="5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="5s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
             </div>
         </section>
+
+        <!-- SVG Wave Separator -->
+        <div class="custom-shape-divider-bottom" style="position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg);">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style="position: relative; display: block; width: calc(100% + 1.3px); height: 70px;">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" style="fill: var(--bg-dark);"></path>
+            </svg>
+        </div>
 
         <!-- About & Contact Section -->
         <section id="about" class="section about-section">
             <h2 class="section-title reveal">About <span class="text-accent">Me</span></h2>
-            <div class="about-grid">
-                <div class="about-text reveal">
+            <div class="about-grid" style="position: relative;">
+                <!-- Background SVG Geometry -->
+                <svg style="position: absolute; top: -20%; left: -10%; width: 50%; height: 150%; opacity: 0.04; z-index: 0; pointer-events: none;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="#06b6d4" stroke-width="0.5" stroke-dasharray="2 2">
+                        <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="40s" repeatCount="indefinite" />
+                    </polygon>
+                    <polygon points="50 10 85 30 85 70 50 90 15 70 15 30" fill="none" stroke="#8b5cf6" stroke-width="0.5">
+                        <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="30s" repeatCount="indefinite" />
+                    </polygon>
+                </svg>
+                
+                <div class="about-text reveal" style="position: relative; z-index: 1;">
                     <p>
                         My professional journey reflects a commitment to quality, innovation, and continuous learning in
                         software development.
@@ -86,7 +142,7 @@
                         quality and performance.
                     </p>
                 </div>
-                <div class="contact-cards reveal-right">
+                <div class="contact-cards reveal-right" style="position: relative; z-index: 1;">
                     <a href="mailto:Bilal.dandashi.92@gmail.com" class="contact-card">
                         <div class="contact-icon"><i class="ph ph-envelope-simple"></i></div>
                         <div class="contact-info">
@@ -135,9 +191,17 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="section skills-section">
-            <h2 class="section-title reveal">My <span class="text-accent">Skills</span></h2>
-            <div class="skills-container">
+        <section id="skills" class="section skills-section" style="position: relative; overflow: hidden;">
+            <!-- SVG Background Pattern for Skills -->
+            <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.04;" xmlns="http://www.w3.org/2000/svg">
+                <pattern id="pattern-circles" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="1.5" fill="#06b6d4"></circle>
+                </pattern>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
+            </svg>
+            
+            <h2 class="section-title reveal" style="position: relative; z-index: 1;">My <span class="text-accent">Skills</span></h2>
+            <div class="skills-container" style="position: relative; z-index: 1;">
                 <div class="skill-category reveal">
                     <h3>Backend & Frameworks</h3>
                     <div class="tags">
@@ -207,9 +271,12 @@
         <section id="experience" class="section experience-section">
             <h2 class="section-title reveal">Work <span class="text-accent">Experience</span></h2>
             <div class="timeline">
+                <div class="timeline-progress" id="timeline-progress"></div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Sep 2025 - Present</span>
                         <h3>Senior Software Developer</h3>
@@ -232,7 +299,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">March 2025 - June 2025</span>
                         <h3>Senior .Net Developer (Volunteer)</h3>
@@ -244,7 +313,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">December 2024 - Sep 2025</span>
                         <h3>Senior Software Developer</h3>
@@ -256,7 +327,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">April 2023 - Aug 2023</span>
                         <h3>Freelance Developer</h3>
@@ -267,7 +340,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Feb 2023 - April 2023</span>
                         <h3>Training For Dynamic 365</h3>
@@ -278,7 +353,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Mar 2021 - Dec 2022</span>
                         <h3>Senior Software Developer</h3>
@@ -290,7 +367,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Sep 2019 - Oct 2020</span>
                         <h3>Senior Software Developer</h3>
@@ -302,7 +381,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Jan 2017 - Aug 2019</span>
                         <h3>Junior Software Developer</h3>
@@ -314,7 +395,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Oct 2015 - May 2016</span>
                         <h3>Asp.net Developer</h3>
@@ -325,7 +408,9 @@
                 </div>
 
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,64H176V56a24,24,0,0,0-24-24H104A24,24,0,0,0,80,56v8H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM96,56a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,80v43.25l-82.68,33.08a16,16,0,0,1-10.64,0L40,123.25V80ZM40,140.48l78.37,31.35a31.86,31.86,0,0,0,19.26,0L216,140.48V200H40Z"></path></svg>
+                    </div>
                     <div class="timeline-content">
                         <span class="timeline-date">Jan 2015 - Aug 2015</span>
                         <h3>Asp.net Developer</h3>
@@ -343,8 +428,11 @@
             <h2 class="section-title reveal">Education & <span class="text-accent">Thesis</span></h2>
             <div class="edu-grid">
 
-                <div class="edu-card reveal">
-                    <div class="edu-header">
+                <div class="edu-card reveal" style="position: relative; overflow: hidden;">
+                    <svg style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; opacity: 0.05; z-index: 0; pointer-events: none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#8b5cf6" d="M42.7,-73.4C55.9,-65.4,67.6,-54.1,75.4,-40.5C83.2,-26.9,87.1,-11,85.2,4.5C83.3,20,75.5,35.1,64.8,47.4C54.1,59.7,40.5,69.2,25.5,74.5C10.5,79.8,-5.9,80.9,-20.7,76.5C-35.5,72.1,-48.7,62.2,-60.1,50.1C-71.5,38,-81.1,23.7,-84.6,8.2C-88.1,-7.3,-85.5,-24,-76.3,-37.2C-67.1,-50.4,-51.3,-60.1,-36.8,-67.2C-22.3,-74.3,-9.1,-78.8,3.2,-83.1C15.5,-87.4,31,-91.5,42.7,-73.4Z" transform="translate(100 100)"></path>
+                    </svg>
+                    <div class="edu-header" style="position: relative; z-index: 1;">
                         <i class="ph ph-student"></i>
                         <span class="edu-date">Sep 2020 - 2024</span>
                     </div>
@@ -361,8 +449,11 @@
                     </div>
                 </div>
 
-                <div class="edu-card reveal" style="transition-delay: 100ms;">
-                    <div class="edu-header">
+                <div class="edu-card reveal" style="transition-delay: 100ms; position: relative; overflow: hidden;">
+                    <svg style="position: absolute; bottom: -50px; left: -50px; width: 150px; height: 150px; opacity: 0.05; z-index: 0; pointer-events: none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#06b6d4" d="M37.6,-66C49.8,-59,61.5,-50,69,-38.3C76.5,-26.6,79.8,-12.3,77.6,1.4C75.4,15.1,67.7,28.2,58.3,40C48.9,51.8,37.8,62.3,23.8,69.5C9.8,76.7,-7.1,80.6,-22.4,76.2C-37.7,71.8,-51.4,59.1,-62.4,44.5C-73.4,29.9,-81.7,13.4,-82.3,-3.3C-82.9,-20,-75.8,-36.9,-63.7,-49.4C-51.6,-61.9,-34.5,-70,-18.2,-72.6C-1.9,-75.2,13.6,-72.3,25.4,-73C37.2,-73.7,47.3,-69,37.6,-66Z" transform="translate(100 100)"></path>
+                    </svg>
+                    <div class="edu-header" style="position: relative; z-index: 1;">
                         <i class="ph ph-graduation-cap"></i>
                         <span class="edu-date">2010 - 2015</span>
                     </div>
@@ -387,38 +478,58 @@
             <h2 class="section-title reveal">Client & <span class="text-accent">Peer Words</span></h2>
             <div class="reco-grid">
 
-                <div class="reco-card reveal">
-                    <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-                    <p class="reco-text">
-                        "I have worked with Bilal long enough to see passion, persistence and love for learning... my
-                        interactions with him and what I used to hear from his supervisor were about how he managed to
-                        learn, gain new skills, and excel in his work. None of this would have been possible, if he
-                        didn't have the self-motivation and passion to develop."
-                    </p>
-                    <div class="reco-author">
-                        <h4>Wesam Al-Issa</h4>
-                        <p>HR Manager</p>
-                        <span class="reco-date">04/30/2023</span>
+                <div class="reco-card reveal" style="position: relative; overflow: hidden;">
+                    <!-- Large faint SVG Quote -->
+                    <svg style="position: absolute; top: 10px; right: 10px; width: 120px; height: 120px; opacity: 0.05; z-index: 0; pointer-events: none; color: var(--accent-purple);" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M104,112A48,48,0,0,1,56,160H40a16,16,0,0,1-16-16V96A48.05,48.05,0,0,1,72,48h8a8,8,0,0,1,0,16H72A32,32,0,0,0,40,96h16a48.05,48.05,0,0,1,48,48Zm128,0a48,48,0,0,1-48,48H168a16,16,0,0,1-16-16V96a48.05,48.05,0,0,1,48-48h8a8,8,0,0,1,0,16h-8a32,32,0,0,0-32,32h16A48.05,48.05,0,0,1,232,112Z"></path>
+                    </svg>
+                    <div style="position: relative; z-index: 1;">
+                        <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                        <p class="reco-text">
+                            "I have worked with Bilal long enough to see passion, persistence and love for learning... my
+                            interactions with him and what I used to hear from his supervisor were about how he managed to
+                            learn, gain new skills, and excel in his work. None of this would have been possible, if he
+                            didn't have the self-motivation and passion to develop."
+                        </p>
+                        <div class="reco-author">
+                            <h4>Wesam Al-Issa</h4>
+                            <p>HR Manager</p>
+                            <span class="reco-date">04/30/2023</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="reco-card reveal" style="transition-delay: 100ms;">
-                    <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-                    <p class="reco-text">
-                        "Bilal has been an invaluable member of our team, particularly from a quality assurance
-                        perspective. His active participation and engagement in discussions while fixing bugs have been
-                        extremely valuable."
-                    </p>
-                    <div class="reco-author">
-                        <h4>Buthaina Malouf</h4>
-                        <p>Quality Assurance Manager, Minerets Tech</p>
-                        <span class="reco-date">04/16/2023</span>
+                <div class="reco-card reveal" style="transition-delay: 100ms; position: relative; overflow: hidden;">
+                    <!-- Large faint SVG Quote -->
+                    <svg style="position: absolute; top: 10px; right: 10px; width: 120px; height: 120px; opacity: 0.05; z-index: 0; pointer-events: none; color: var(--accent-cyan);" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M104,112A48,48,0,0,1,56,160H40a16,16,0,0,1-16-16V96A48.05,48.05,0,0,1,72,48h8a8,8,0,0,1,0,16H72A32,32,0,0,0,40,96h16a48.05,48.05,0,0,1,48,48Zm128,0a48,48,0,0,1-48,48H168a16,16,0,0,1-16-16V96a48.05,48.05,0,0,1,48-48h8a8,8,0,0,1,0,16h-8a32,32,0,0,0-32,32h16A48.05,48.05,0,0,1,232,112Z"></path>
+                    </svg>
+                    <div style="position: relative; z-index: 1;">
+                        <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                        <p class="reco-text">
+                            "Bilal has been an invaluable member of our team, particularly from a quality assurance
+                            perspective. His active participation and engagement in discussions while fixing bugs have been
+                            extremely valuable."
+                        </p>
+                        <div class="reco-author">
+                            <h4>Buthaina Malouf</h4>
+                            <p>Quality Assurance Manager, Minerets Tech</p>
+                            <span class="reco-date">04/16/2023</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </section>
     </main>
+
+    <!-- Footer Wave Separator -->
+    <div class="custom-shape-divider-top" style="position: relative; width: 100%; overflow: hidden; line-height: 0; background-color: var(--bg-dark);">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style="position: relative; display: block; width: calc(100% + 1.3px); height: 60px;">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" style="fill: var(--bg-card); opacity: 0.5"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-23.82V0Z" style="fill: var(--bg-card);"></path>
+        </svg>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

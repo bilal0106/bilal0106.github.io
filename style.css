@@ -297,30 +297,6 @@ main {
     position: relative;
 }
 
-.abstract-shape {
-    width: 350px;
-    height: 350px;
-    background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    box-shadow: inset 0 0 50px rgba(6, 182, 212, 0.1), 0 0 50px rgba(139, 92, 246, 0.2);
-    animation: morph 8s ease-in-out infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: var(--border-subtle);
-}
-
-.shape-inner {
-    font-size: 5rem;
-    color: var(--accent-cyan);
-    opacity: 0.8;
-}
-
-@keyframes morph {
-    0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-    50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-    100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-}
 
 /* About Section */
 .about-grid {
@@ -387,19 +363,74 @@ main {
 
 .skill-category {
     background: var(--bg-card);
-    border: var(--border-subtle);
     border-radius: var(--radius-md);
     padding: 2rem;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Animated Glowing Border Effect for Skill Cards */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.skill-category::before, .skill-category::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 70%, var(--accent-cyan), var(--accent-purple));
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: var(--radius-md);
+    animation: 4s spin linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.skill-category::before {
+    filter: blur(1.5rem);
+}
+
+.skill-category:hover::before, .skill-category:hover::after {
+    opacity: 1;
+}
+
+@keyframes spin {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+
+.skill-category > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Inner box to cover gradient body */
+.skill-category::after {
+    background: var(--bg-card);
+    padding: 0;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    background-image: none;
+    z-index: 0;
+    opacity: 1;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
 }
 
 .skill-category.full-width {
     grid-column: 1 / -1;
-}
-
-.skill-category:hover {
-    border-color: rgba(139, 92, 246, 0.3);
-    background: var(--bg-card-hover);
 }
 
 .skill-category h3 {
@@ -427,21 +458,41 @@ main {
 }
 
 .tag {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.4rem 1rem;
-    border-radius: 2rem;
+    color: var(--text-secondary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
     font-size: 0.9rem;
-    color: var(--text-muted);
-    transition: all 0.3s ease;
-    cursor: default;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.tag:hover::before {
+    left: 100%;
 }
 
 .tag:hover {
-    background: rgba(6, 182, 212, 0.1);
+    background: rgba(6, 182, 212, 0.15);
     border-color: var(--accent-cyan);
     color: var(--text-main);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
 }
 
 /* Experience Section Timeline */
@@ -456,10 +507,22 @@ main {
     position: absolute;
     width: 2px;
     height: 100%;
-    background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), transparent);
+    background: rgba(255, 255, 255, 0.05); /* Dim base line */
     left: 20px;
     top: 0;
     border-radius: 2px;
+}
+
+.timeline-progress {
+    position: absolute;
+    width: 2px;
+    height: 0%; /* Will be filled by JS */
+    background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple));
+    left: 20px;
+    top: 0;
+    border-radius: 2px;
+    z-index: 1;
+    transition: height 0.1s ease;
 }
 
 .timeline-item {
@@ -472,22 +535,34 @@ main {
     margin-bottom: 0;
 }
 
-.timeline-dot {
+.timeline-icon {
     position: absolute;
-    width: 16px;
-    height: 16px;
-    background: var(--bg-dark);
-    border: 3px solid var(--accent-cyan);
-    border-radius: 50%;
-    left: 13px;
+    left: 4px;
     top: 5px;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-cyan);
+    border-radius: 50%;
     z-index: 2;
-    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+    transition: var(--transition);
 }
 
-.timeline-item:hover .timeline-dot {
+.timeline-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.timeline-item:hover .timeline-icon {
     background: var(--accent-cyan);
-    box-shadow: 0 0 15px var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
+    transform: scale(1.1);
 }
 
 .timeline-content {
@@ -727,6 +802,148 @@ main {
     transform: translate(0);
 }
 
+/* --- QUANTUM BIOLUMINESCENCE ADDITIONS --- */
+
+#living-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
+    pointer-events: none;
+    background-color: var(--bg-dark);
+}
+
+/* Liquid Goo Effect - REMOVED due to text rendering issues */
+
+/* Spotlight Masking */
+:root {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+}
+
+main {
+    /* Create a spotlight effect that follows the cursor */
+    mask-image: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        black 15%,
+        rgba(0, 0, 0, 0.8) 40%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    -webkit-mask-image: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        black 15%,
+        rgba(0, 0, 0, 0.8) 40%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    transition: -webkit-mask-image 0.1s ease, mask-image 0.1s ease;
+}
+
+/* Ensure timeline is visible in dark */
+.timeline::before {
+    background: rgba(6, 182, 212, 0.1);
+}
+
+/* Organic Timeline Path Styles */
+.timeline-path-svg {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 100px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.timeline-path {
+    fill: none;
+    stroke: rgba(139, 92, 246, 0.2);
+    stroke-width: 4;
+}
+
+.timeline-path-glow {
+    fill: none;
+    stroke: var(--accent-cyan);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 8px var(--accent-cyan));
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000; /* Handled by JS */
+}
+
+/* --- COMPLEX DESIGN ADDITIONS --- */
+
+/* Noise Overlay */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Cursor */
+* {
+    cursor: none; /* Hide default cursor */
+}
+
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-cyan);
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+/* 3D Tilt Card Base */
+.edu-card, .reco-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+.edu-card:hover, .reco-card:hover {
+    /* Transform handled by JS */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+/* Typewriter cursor blink */
+.cursor-blink {
+    display: inline-block;
+    width: 3px;
+    background-color: var(--accent-cyan);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 /* Responsive Media Queries */
 @media (max-width: 992px) {
     .about-grid {
@@ -747,10 +964,12 @@ main {
         margin: 0 auto 2.5rem;
     }
     
-    .abstract-shape {
-        width: 250px;
-        height: 250px;
-        margin-bottom: 2rem;
+    
+    * {
+        cursor: auto; /* Restore cursor on mobile */
+    }
+    .cursor-dot, .cursor-outline, .noise-overlay {
+        display: none;
     }
 }
 
