@@ -1,245 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lava Cafe Menu</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belal Al Mohammad - Senior .NET Developer</title>
+    <meta name="description"
+        content="Portfolio of Belal Al Mohammad, a Senior .NET Developer with expertise in Backend Systems, RESTful APIs, Machine Learning, and Business Analysis.">
 
-<style>
-.item-img{width:100%;height:220px;object-fit:cover;border-radius:16px;margin-bottom:10px;display:block}
-.menu-card h3.item-title{margin-top:0}
+    <!-- Google Fonts: Outfit and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
 
-/* === Item Detail Drawer === */
-.item-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:9998}
-.item-overlay.show{opacity:1;pointer-events:auto}
-.item-drawer{position:fixed;top:0;right:0;height:100vh;width:min(520px,100%);background:#f0b6b6;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.25);transform:translateX(100%);transition:transform .25s ease;z-index:9999}
-.item-overlay.show + .item-drawer{transform:translateX(0)}
-.item-drawer header{display:flex;align-items:center;gap:8px;padding:14px 16px}
-.item-drawer header button.back{background:transparent;border:none;font-size:18px;cursor:pointer;padding:8px;border-radius:8px}
-.item-drawer .detail-body{overflow:auto;padding:12px 16px 24px}
-.item-drawer .detail-title{font-weight:700;margin:8px 0 6px;font-size:18px;color:#a41630}
-.item-drawer .detail-price{margin-left:auto;font-weight:700;color:#a41630}
-.item-drawer .detail-hero{width:100%;height:320px;object-fit:cover;border-radius:10px;margin-bottom:12px;background:#eee}
-.item-drawer .detail-desc{line-height:1.5;color:rgb(214, 9, 49)}
-@media (max-width:640px){
-  .item-drawer .detail-hero{height:260px}
-}
-.grid .card{cursor:pointer}
+    <!-- Phosphor Icons for modern minimalist icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-
-/* === Back button: minimal icon + label (Option A) === */
-.item-drawer header button.back{
-  display:flex;align-items:center;gap:8px;
-  background:none;border:none;outline:none;
-  color:#b3132b;font-weight:600;font-size:16px;
-  padding:4px 2px;border-radius:8px;cursor:pointer;
-}
-.item-drawer header button.back svg{width:20px;height:20px;flex:0 0 20px}
-.item-drawer header button.back:hover{opacity:.75}
-
-
-/* Title + Price row under the image */
-.item-drawer .title-price-row{display:flex;align-items:center;gap:8px;margin:6px 2px 10px}
-.item-drawer .title-price-row .detail-title{margin:0;flex:1}
-.item-drawer .title-price-row .detail-price{font-weight:700}
-
-</style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div id="itemOverlay" class="item-overlay" aria-hidden="true"></div>
-<aside id="itemDrawer" class="item-drawer" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-  <header>
-    <button class="back" id="drawerBack" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 19.5 8 12l7.5-7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Back</span></button>
-  </header>
-  <div class="detail-body">
-    <img id="detailImg" class="detail-hero" alt="">
-    <div class="title-price-row"><h3 class="detail-title" id="detailTitle"></h3><span class="detail-price" id="detailPrice"></span></div>
-    <p class="detail-desc" id="detailDesc"></p>
-  </div>
-</aside>
 
-  <!-- Header -->
-  <!-- Hero Image -->
-<div class="hero-image"></div>
+    <!-- Background Animation Elements -->
+    <div class="bg-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
 
-<!-- Title & Slogan -->
-<div class="title-block">
-  <h1 class="brand">Lava Cafe</h1>
-  <p class="slogan">We Change the Vibe</p>
-</div>
-
-<!-- Search -->
-<div class="search-wrap">
-  <div class="search">
-    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.57-4.23C16 6.01 13.99 4 11.5 4S7 6.01 7 9.5 9.01 15 11.5 15c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5 1.5-1.5-5-5zM11.5 13C9.57 13 8 11.43 8 9.5S9.57 6 11.5 6 15 7.57 15 9.5 13.43 13 11.5 13z"/></svg>
-    <input id="q" type="search" placeholder="Search">
-  </div>
-</div>
-
-  <!-- Main Tabs -->
-  <nav class="main-tabs" role="tablist" aria-label="Main Menu Tabs">
-    <ul>
-      <li class="active" data-tab="Drinks" role="tab" aria-selected="true">Drinks</li>
-      <li data-tab="Argileh" role="tab" aria-selected="false">Argileh</li>
-      <li data-tab="Desserts" role="tab" aria-selected="false">Desserts</li>
-    </ul>
-  </nav>
-
-  <!-- Sub Tabs (only for Drinks) -->
-  <nav class="sub-tabs" id="subTabs" role="tablist" aria-label="Drink Types">
-    <ul>
-      <li class="active" data-sub="Cocktails" role="tab" aria-selected="true">Cocktails</li>
-      <li data-sub="Milk Shakes" role="tab" aria-selected="false">Milk Shakes</li>
-      <li data-sub="Mojito" role="tab" aria-selected="false">Mojito</li>
-      <li data-sub="Iced Coffee" role="tab" aria-selected="false">Iced Coffee</li>
-      <li data-sub="Hot Drinks" role="tab" aria-selected="false">Hot Drinks</li>
-      <li data-sub="Fresh Juices" role="tab" aria-selected="false">Fresh Juices</li>
-      <li data-sub="Soft Drinks" role="tab" aria-selected="false">Soft Drinks</li>
-    </ul>
-  </nav>
-
-  <!-- Panels -->
-  <main>
-    <section class="panel show" id="panel-Drinks">
-      <section class="menu">
-        <h2 id="categoryTitle">Cocktails</h2>
-        <div class="grid" id="grid"></div>
-      </section>
-    </section>
-
-    <section class="panel" id="panel-Argileh">
-      <section class="menu">
-        <h2>Argileh</h2>
-        <div class="grid" id="grid-argileh"></div>
-      </section>
-    </section>
-
-    <section class="panel" id="panel-Desserts">
-      <section class="menu">
-        <h2> Desserts </h2>
-        <div class="grid" id="grid-desserts"></div>
-      </section>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>For Reservations: 0789166682</p>
-    <p>5% Sales tax will be added to the bill.</p>
-  </footer>
-
-  <script>
-  window.PLACEHOLDER_IMG = "https://placehold.co/400x300?text=No+Image";
-const DATA = {"Drinks": {"Cocktails": [{"name": "Lava Storm", "desc": "Strawberry , mango, beach, pineapple, orange.", "price": "JOD 4.620", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/24/croppedimage-638943541210994753.jpg"}, {"name": "Mango Melo", "desc": "Mango, melon, vanilla ice cream", "price": "JOD 3.250", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/24/croppedimage-638943539888530286.jpg"}, {"name": "Banana with Milk", "desc": "Banana with Milk", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941706519344803.jpg"}, {"name": "Avocado", "desc": "Avocado, Milk, nuts with honey", "price": "JOD 4.620", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941709123247348.jpg"}, {"name": "Virgin Colada", "desc": "Pineapple fresh, milk, coconut flex, vanilla ice cream, pineapple juice", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941710304075021.jpg"}, {"name": "Lava Cocktail", "desc": "Pineapple fresh, kiwi fresh, pineapple juice, kiwi juice & beach syrup", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941712761913014.jpg"}, {"name": "Virgin Sangrin (for 3 Persons)", "desc": "Fresh lemon, fresh apple, fresh orange, fresh grenadine, cranberry juice, grape juice & cinnamon", "price": "JOD 13.900", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941714820213263.jpg"}, {"name": "Mint Rose", "desc": "Grenadine syrup, fresh mint & cold karkade", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941717728802642.jpg"}, {"name": "Pina Colada", "desc": "Pineapple, coconut, milk, ice cream.", "price": "JOD 3.250", "img": "img/Virgin Colada.JPG"}, {"name": "Ice Tea Peach", "desc": "Peaches, lemon, ice tea", "price": "JOD 3.250", "img": "img/Tea Pot.JPG"}, {"name": "Ice Tea Lemon", "desc": "Lemon, ice tea", "price": "JOD 3.250", "img": "img/Tea Pot.JPG"}, {"name": "Virgin Sangria (for 3 Persons)", "desc": "Mixed fruits, juices, soda (non-alcoholic).", "price": "", "img": "img/Virgin Sangria.JPG"}], "Milk Shakes": [{"name": "Pistachio Milkshake", "desc": "", "price": "JOD 3.500", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941749574032173.jpg"}, {"name": "Crocan Milkshake", "desc": "", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941748747340053.jpg"}, {"name": "Snickers Milkshake", "desc": "", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941747522902065.jpg"}, {"name": "Arabieh Milkshake", "desc": "", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941746520778221.jpg"}, {"name": "Cheesecake Milkshake", "desc": "", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941745820965403.jpg"}, {"name": "Strawberry Milkshake", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941745006353454.jpg"}, {"name": "Oreo Milkshake", "desc": "", "price": "JOD 3.240", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941743796499380.jpg"}, {"name": "Chocolate Milkshake", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941743023204144.jpg"}, {"name": "Snow White", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941742258582732.jpg"}, {"name": "Sweet Berry", "desc": "Cranberry and raspberry jam, strawberry syrup,  strawberry ice cream & milk", "price": "JOD 3.700", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941740818860454.jpg"}, {"name": "Vanilla", "desc": "Vanilla Ice Cream, Milk", "price": "JOD 3.500", "img": "img/Vanilla Frappe.JPG"}, {"name": "Strawberry", "desc": "Strawberry, Milk, Vanilla Ice Cream", "price": "JOD 3.500", "img": "img/Strawberry juice .JPG"}, {"name": "Chocolate", "desc": "Chocolate, Milk, Vanilla Ice Cream", "price": "JOD 3.500", "img": "img/Hot Chocolate.JPG"}, {"name": "Oreo", "desc": "Oreo, Milk, Vanilla Ice Cream", "price": "JOD 3.500", "img": "img/Oreo Milkshake.JPG"}, {"name": "Pistachio", "desc": "Pistachio, Milk, Vanilla Ice Cream", "price": "JOD 4.000", "img": "img/Pistachio Milkshake.JPG"}, {"name": "Bounty", "desc": "Bounty, Milk, Vanilla Ice Cream", "price": "JOD 4.000", "img": "img/Banana with Milk.JPG"}, {"name": "Lotus", "desc": "Lotus, Milk, Vanilla Ice Cream", "price": "JOD 4.000", "img": "img/Turkish.JPG"}], "Mojito": [{"name": "Classic Mojito", "desc": "Mint, lemon, sparkling water, sugar", "price": "JOD 3.250", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941751647074387.jpg"}, {"name": "Strawberry Mojito", "desc": "Strawberry, mint, lemon, sparkling water, sugar", "price": "JOD 3.500", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941752441936512.jpg"}, {"name": "Blue Lagoon Mojito", "desc": "Curacao syrup, mint, lemon, sparkling water, sugar", "price": "JOD 3.500", "img": "img/Redbull Mojito.JPG"}, {"name": "Blackberry Mojito", "desc": "Blackberry, mint, lemon, sparkling water, sugar", "price": "JOD 3.500", "img": "img/Strawberry Mojito.JPG"}, {"name": "Redbull Mojito", "desc": "Mint, lemon, Red Bull, sugar", "price": "", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941755750312085.jpg"}, {"name": "Mojito Passion", "desc": "Passion fruit, mint, lemon, sparkling water", "price": "", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941753616803459.jpg"}, {"name": "Mojito Mix", "desc": "Assorted fruit mix, mint, lemon, sparkling water", "price": "", "img": "img/Mojito Mix.JPG"}, {"name": "Added Flavor", "desc": "Customize your mojito with extra flavor shot", "price": "", "img": "img/Flavor.JPG"}], "Hot Drinks": [{"name": "Mocha", "desc": "", "price": "JOD 2.950", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941721784477893.jpg"}, {"name": "Hot Chocolate", "desc": "", "price": "JOD 2.780", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941731051323345.jpg"}, {"name": "Hot Chocolate Marshmallow", "desc": "", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941725942262824.jpg"}, {"name": "Cappuccino", "desc": "", "price": "JOD 2.780", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941728753728664.jpg"}, {"name": "French Cofe", "desc": "", "price": "JOD 3.200", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941733068537400.jpg"}, {"name": "Lotus Late", "desc": "", "price": "JOD 3.200", "img": ""}, {"name": "Added Flavor", "desc": "", "price": "JOD 0.250", "img": ""}, {"name": "Ginger Honey", "desc": "", "price": "JOD 3.000", "img": ""}, {"name": "Herbs", "desc": "", "price": "JOD 1.620", "img": ""}, {"name": "Teapot", "desc": "", "price": "JOD 3.250", "img": ""}, {"name": "Nescafe", "desc": "", "price": "JOD 2.000", "img": ""}, {"name": "Americano", "desc": "", "price": "JOD 2.750", "img": ""}, {"name": "American Cofe", "desc": "", "price": "JOD 2.750", "img": ""}, {"name": "Turkish Cofe Double", "desc": "", "price": "JOD 2.300", "img": ""}, {"name": "Turkish Cofe Single", "desc": "", "price": "JOD 1.620", "img": ""}, {"name": "Espresso Cortado", "desc": "", "price": "JOD 2.500", "img": ""}, {"name": "Espresso Double", "desc": "", "price": "JOD 2.300", "img": ""}, {"name": "Espresso Single", "desc": "", "price": "JOD 1.900", "img": ""}, {"name": "Tea", "desc": "", "price": "JOD 1.620", "img": ""}, {"name": "Spanish Latte", "desc": "", "price": "JOD 3.200", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941731940315219.jpg"}, {"name": "Espresso", "desc": "Double shot espresso", "price": "JOD 2.000", "img": "img/Espresso Double.JPG"}, {"name": "Latte", "desc": "Espresso shot, steamed milk", "price": "JOD 3.000", "img": "img/Iced Latte.JPG"}, {"name": "Hot Spanish Latte", "desc": "Espresso shot, sweet milk, steamed milk", "price": "JOD 3.500", "img": "img/Spanish Latte.JPG"}, {"name": "V60", "desc": "V60 Coffee", "price": "JOD 3.500", "img": "img/Avocado.JPG"}, {"name": "Turkish Coffee", "desc": "Turkish Coffee", "price": "JOD 1.750", "img": "img/Turkish.JPG"}, {"name": "Green Tea", "desc": "Green Tea", "price": "JOD 1.250", "img": "img/Karak Tea.JPG"}, {"name": "Herbs Tea", "desc": "Herbs Tea", "price": "JOD 1.500", "img": "img/Herbs.JPG"}], "Fresh Juices": [{"name": "Lemonade", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941763301696028.jpg"}, {"name": "Lebanese Lemonade", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941764022805923.jpg"}, {"name": "Orange Juice", "desc": "", "price": "JOD 2.770", "img": ""}, {"name": "Carrot Juice", "desc": "", "price": "JOD 2.770", "img": ""}, {"name": "Apple Juice", "desc": "", "price": "JOD 2.770", "img": ""}, {"name": "Mango Juice", "desc": "", "price": "JOD 3.000", "img": ""}, {"name": "Strawberry Juice", "desc": "", "price": "JOD 3.000", "img": ""}, {"name": "Kiwi Juice", "desc": "", "price": "JOD 3.000", "img": ""}, {"name": "Pineapple Juice", "desc": "", "price": "JOD 3.000", "img": ""}, {"name": "Karkade Juice", "desc": "", "price": "JOD 2.550", "img": ""}, {"name": "Orange", "desc": "Orange", "price": "JOD 2.500", "img": "img/Orange Juice.JPG"}, {"name": "Lemon", "desc": "Lemon", "price": "JOD 2.500", "img": "img/Lemon Cake.JPG"}, {"name": "Lemon with Mint", "desc": "Lemon, Mint", "price": "JOD 2.750", "img": "img/Lemon mint.JPG"}, {"name": "Strawberry", "desc": "Strawberry", "price": "JOD 3.000", "img": "img/Strawberry juice .JPG"}, {"name": "Kiwi", "desc": "Kiwi", "price": "JOD 3.000", "img": "img/Kiwi Juice.JPG"}, {"name": "Watermelon", "desc": "Watermelon", "price": "JOD 2.750", "img": "img/Mango Melo.JPG"}, {"name": "Melon", "desc": "Melon", "price": "JOD 2.750", "img": "img/Mango Melo.JPG"}, {"name": "Pineapple", "desc": "Pineapple", "price": "JOD 3.000", "img": "img/Pineapple Juice.jpg"}, {"name": "Grape", "desc": "Grape", "price": "JOD 2.500", "img": "img/crepe.png"}], "Soft Drinks": [{"name": "Mexican Beer", "desc": "", "price": "JOD 3.450", "img": ""}, {"name": "Barbican", "desc": "", "price": "JOD 2.350", "img": ""}, {"name": "Soda Water", "desc": "", "price": "JOD 1.750", "img": ""}, {"name": "Water Bottle", "desc": "330 Ml", "price": "JOD 0.700", "img": ""}, {"name": "Matrix Soda", "desc": "Multiple Flavors", "price": "JOD 1.390", "img": ""}, {"name": "Pepsi", "desc": "", "price": "JOD 1.500", "img": "img/Apple Pie.JPG"}, {"name": "7up", "desc": "", "price": "JOD 1.500", "img": "img/crepe.png"}, {"name": "Miranda", "desc": "", "price": "JOD 1.500", "img": "img/Americano.JPG"}, {"name": "Perrier", "desc": "", "price": "JOD 2.000", "img": "img/Apple Pie.JPG"}, {"name": "Red Bull", "desc": "", "price": "JOD 3.500", "img": "img/Redbull Mojito.JPG"}, {"name": "Still Water (Small)", "desc": "", "price": "JOD 0.500", "img": "img/Hot Chocolate Marshmallow.JPG"}, {"name": "Still Water (Large)", "desc": "", "price": "JOD 1.000", "img": "img/Chocolate Milkshake.JPG"}], "Iced Coffee": [{"name": "Iced Latte", "desc": "Shot Espresso, milk and ice", "price": "JOD 2.870", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941632866704608.jpg"}, {"name": "Iced Mocha", "desc": "Chocolate sauce , chocolate powder, espresso & milk", "price": "JOD 3.150", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941636664554425.jpg"}, {"name": "Iced White Mocha", "desc": "White chocolate sauce, espresso & milk", "price": "JOD 3.400", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941638143170611.jpg"}, {"name": "Iced Spanish Latte", "desc": "Condensed milk, vanilla serum, espresso & milk", "price": "JOD 3.150", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941639814134753.jpg"}, {"name": "Vanilla Frappe", "desc": "Espresso, vanilla serum and milk", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941641508294629.jpg"}, {"name": "Iced Caramel Macchiato", "desc": "Vanilla serum, caramel sauce, milk & espresso", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941644519831609.jpg"}, {"name": "Caramel Frappe", "desc": "Caramel syrup, caramel sauce, espresso and milk", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941647996179673.jpg"}, {"name": "Iced Pistachio Latte", "desc": "Pistachio sauce, hazelnut syrup, espresso & milk", "price": "JOD 3.250", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941649339373539.jpg"}, {"name": "Iced Americano", "desc": "Espresso on the rock & ice", "price": "JOD 2.770", "img": ""}, {"name": "Frappuccino", "desc": "Espresso shot, Milk, Vanilla Ice Cream, whip cream", "price": "JOD 4.000", "img": "img/Cappuccino.JPG"}, {"name": "Iced V60", "desc": "V60, Ice", "price": "JOD 3.750", "img": "img/Iced Latte.JPG"}, {"name": "Cold Brew", "desc": "Cold Brew", "price": "JOD 3.750", "img": "img/Iced Latte.JPG"}]}, "Argileh": [{"name": "Change Head (Nakhleh)", "desc": "", "price": "JOD 2.500", "img": ""}, {"name": "Change Head (Mazaya)", "desc": "", "price": "JOD 1.990", "img": ""}, {"name": "Any Flavor (Nakhleh)", "desc": "", "price": "JOD 6.000", "img": ""}, {"name": "Any Flavor (Mazayah)", "desc": "", "price": "JOD 4.500", "img": ""}, {"name": "Double Apple", "desc": "Argileh with double apple flavor", "price": "JOD 4.000", "img": ""}, {"name": "Grape", "desc": "Argileh with grape flavor", "price": "JOD 4.000", "img": ""}, {"name": "Mint", "desc": "Argileh with mint flavor", "price": "JOD 4.000", "img": ""}, {"name": "Gum", "desc": "Argileh with gum flavor", "price": "JOD 4.000", "img": ""}, {"name": "Grape & Mint", "desc": "Argileh with grape and mint flavor", "price": "JOD 4.500", "img": ""}, {"name": "Gum & Mint", "desc": "Argileh with gum and mint flavor", "price": "JOD 4.500", "img": ""}, {"name": "Watermelon & Mint", "desc": "Argileh with watermelon and mint flavor", "price": "JOD 5.000", "img": ""}, {"name": "Lemon & Mint", "desc": "Argileh with lemon and mint flavor", "price": "JOD 5.000", "img": ""}, {"name": "Mastic", "desc": "Argileh with mastic flavor", "price": "JOD 5.000", "img": ""}, {"name": "Orange", "desc": "Argileh with orange flavor", "price": "JOD 5.000", "img": ""}, {"name": "Ice Cube", "desc": "Add ice cube", "price": "JOD 0.500", "img": ""}], "Desserts": [{"name": "Fruit Salad", "desc": "Mix of fresh fruit, nuts and dried raspberry", "price": "JOD 4.600", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941766240004980.jpg"}, {"name": "Cheesecake", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941767232750821.jpg"}, {"name": "Lotus Cake", "desc": "", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941767794333914.jpg"}, {"name": "Raffaello Cake", "desc": "", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941769874635127.jpg"}, {"name": "Apple pie", "desc": "", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941770510524442.jpg"}, {"name": "Tiramisu", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941771260312476.jpg"}, {"name": "Brownies", "desc": "", "price": "JOD 3.000", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941771955123404.jpg"}, {"name": "Lemon Cake", "desc": "", "price": "JOD 2.770", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941772318003425.jpg"}, {"name": "Chocolate Cupcake", "desc": "", "price": "JOD 1.750", "img": "https://ddnsxs2xtw6l4.cloudfront.net/2025/09/22/croppedimage-638941772930305749.jpg"}, {"name": "Crepe", "desc": "", "price": "JOD 2.770", "img": ""}, {"name": "Waffle", "desc": "", "price": "JOD 2.770", "img": ""}, {"name": "French Toast", "desc": "", "price": "JOD 3.500", "img": ""}, {"name": "Nuts", "desc": "", "price": "JOD 2.500", "img": ""}, {"name": "Ice cream Chocolate", "desc": "Two Scoops", "price": "JOD 2.000", "img": ""}, {"name": "Ice cream Vanilla", "desc": "Two Scoops", "price": "JOD 2.000", "img": ""}, {"name": "Ice cream Strawberry", "desc": "Two Scoops", "price": "JOD 2.000", "img": ""}, {"name": "Ice cream Snickers", "desc": "Two Scoops", "price": "JOD 2.500", "img": ""}, {"name": "Ice cream Oreo", "desc": "Two Scoops", "price": "JOD 2.500", "img": ""}, {"name": "Ice cream Cheesecake", "desc": "Two Scoops", "price": "JOD 2.500", "img": ""}, {"name": "Ice cream Crocan", "desc": "Two Scoops", "price": "JOD 2.500", "img": ""}, {"name": "Ice cream Arabieh", "desc": "Two Scoops", "price": "JOD 2.500", "img": ""}, {"name": "Cookie Skillet", "desc": "Cookie dough baked in a skillet, served hot with ice cream", "price": "JOD 4.500", "img": "img/Iced Spanish Latte .JPG"}, {"name": "Pancake", "desc": "Pancakes served with your choice of toppings", "price": "JOD 3.500", "img": "img/Lemon Cake.JPG"}]};
-  // helpers
-  function el(html){ const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
-  function cardTemplate(item){
-    const desc = item.desc ? `<p class="desc">${item.desc}</p>` : '';
-    const dataAttrs = `data-name="${item.name.replace(/"/g, '&quot;')}" data-price="${item.price}" data-img="${item.img}" data-desc="${(item.desc||'').replace(/"/g,'&quot;')}"`;
-    return `
-      <article class="card" ${dataAttrs} data-title="${item.name.toLowerCase()}">
-        ${ item.img ? `<img src="${item.img}" alt="${item.name}">` : '' }
-        <div class="card-body">
-          <h3 class="name">${item.name}</h3>
-          ${desc}
-          <div class="meta"><span class="price">${item.price}</span></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">BA<span class="text-accent">.</span></a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#recommendations" class="nav-link">Recommendations</a>
+            </div>
+            <button class="mobile-menu-btn"><i class="ph ph-list"></i></button>
         </div>
-      </article>`;
-  }
-  function renderGrid(container, items){
-    container.innerHTML = items.map(cardTemplate).join('');
-  }
+    </nav>
 
-  // Initial renders for Argileh & Desserts
-  renderGrid(document.getElementById('grid-argileh'), DATA.Argileh);
-  renderGrid(document.getElementById('grid-desserts'), DATA.Desserts);
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content reveal">
+                <h2 class="hero-greeting">Hello, I'm</h2>
+                <h1 class="hero-name">Belal <span class="text-gradient">Al Mohammad</span></h1>
+                <h3 class="hero-title">Senior .NET Developer</h3>
+                <p class="hero-description">
+                    Dedicated to quality, innovation, and continuous learning in software development.
+                    Building scalable enterprise solutions and leading backend architectures.
+                </p>
+                <div class="hero-actions">
+                    <a href="#experience" class="btn btn-primary">View My Work</a>
+                    <a href="#about" class="btn btn-secondary">Contact Me</a>
+                </div>
+            </div>
+            <div class="hero-visual reveal-right">
+                <!-- Abstract visual representation instead of a photo for now -->
+                <div class="abstract-shape">
+                    <div class="shape-inner">
+                        <i class="ph ph-code size-large"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // Drinks dynamic sub-categories
-  const grid = document.getElementById('grid');
-  const title = document.getElementById('categoryTitle');
-  function renderDrinks(cat){
-    title.textContent = cat;
-    renderGrid(grid, DATA.Drinks[cat]);
-    document.getElementById('q').value = ''; // reset search per change
-  }
-  renderDrinks('Cocktails');
+        <!-- About & Contact Section -->
+        <section id="about" class="section about-section">
+            <h2 class="section-title reveal">About <span class="text-accent">Me</span></h2>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        My professional journey reflects a commitment to quality, innovation, and continuous learning in
+                        software development.
+                        With a diverse skill set and extensive experience in the .NET ecosystem, system architecture,
+                        and machine learning,
+                        I am a valuable asset to any software development team. I thrive in fast-paced environments,
+                        delivering reliable
+                        and efficient solutions that meet client needs while maintaining high standards of software
+                        quality and performance.
+                    </p>
+                </div>
+                <div class="contact-cards reveal-right">
+                    <a href="mailto:Bilal.dandashi.92@gmail.com" class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-envelope-simple"></i></div>
+                        <div class="contact-info">
+                            <h4>Email</h4>
+                            <p>Bilal.dandashi.92@gmail.com</p>
+                        </div>
+                    </a>
+                    <a href="tel:0799612170" class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-phone"></i></div>
+                        <div class="contact-info">
+                            <h4>Phone</h4>
+                            <p>0799612170</p>
+                        </div>
+                    </a>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-map-pin"></i></div>
+                        <div class="contact-info">
+                            <h4>Address</h4>
+                            <p>46 Mohammad al hattab street</p>
+                        </div>
+                    </div>
+                    <a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8ba3/" target="_blank"
+                        class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-linkedin-logo"></i></div>
+                        <div class="contact-info">
+                            <h4>LinkedIn</h4>
+                            <p>Belal Al Mohammad</p>
+                        </div>
+                    </a>
+                    <a href="https://github.com/bilal0106" target="_blank" class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-github-logo"></i></div>
+                        <div class="contact-info">
+                            <h4>GitHub</h4>
+                            <p>bilal0106</p>
+                        </div>
+                    </a>
+                    <a href="https://stackoverflow.com/search?q=user%3ABilal+dandashi" target="_blank" class="contact-card">
+                        <div class="contact-icon"><i class="ph ph-stack-overflow-logo"></i></div>
+                        <div class="contact-info">
+                            <h4>Stack Overflow</h4>
+                            <p>Bilal dandashi</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  // Tabs logic
-  const mainTabs = document.querySelectorAll('.main-tabs li');
-  const panels = { Drinks: document.getElementById('panel-Drinks'), Argileh: document.getElementById('panel-Argileh'), Desserts: document.getElementById('panel-Desserts') };
-  const subTabsNav = document.getElementById('subTabs');
-  mainTabs.forEach(li => li.addEventListener('click', () => {
-    mainTabs.forEach(t => t.classList.remove('active'));
-    li.classList.add('active');
-    const tab = li.dataset.tab;
-    Object.entries(panels).forEach(([k, el]) => el.classList.toggle('show', k === tab));
-    subTabsNav.style.display = (tab === 'Drinks') ? 'block' : 'none';
-  }));
+        <!-- Skills Section -->
+        <section id="skills" class="section skills-section">
+            <h2 class="section-title reveal">My <span class="text-accent">Skills</span></h2>
+            <div class="skills-container">
+                <div class="skill-category reveal">
+                    <h3>Backend & Frameworks</h3>
+                    <div class="tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">.NET Core</span>
+                        <span class="tag">ASP.NET MVC</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">Entity Framework</span>
+                        <span class="tag">REST APIs</span>
+                    </div>
+                </div>
 
-  const subTabs = document.querySelectorAll('.sub-tabs li');
-  subTabs.forEach(li => li.addEventListener('click', () => {
-    subTabs.forEach(t => t.classList.remove('active'));
-    li.classList.add('active');
-    renderDrinks(li.dataset.sub);
-  }));
+                <div class="skill-category reveal" style="transition-delay: 100ms;">
+                    <h3>Frontend Development</h3>
+                    <div class="tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">React/Blazor</span>
+                        <span class="tag">jQuery</span>
+                        <span class="tag">KnockoutJS</span>
+                        <span class="tag">Bootstrap</span>
+                    </div>
+                </div>
 
-  // Search (filters visible grid)
-  const q = document.getElementById('q');
-  q.addEventListener('input', () => {
-    const term = q.value.trim().toLowerCase();
-    const visibleGrid = document.querySelector('.panel.show .grid');
-    if (!visibleGrid) return;
-    visibleGrid.querySelectorAll('.card').forEach(card => {
-      const title = card.dataset.title;
-      const desc = card.querySelector('.desc')?.textContent.toLowerCase() || '';
-      card.style.display = (title.includes(term) || desc.includes(term)) ? '' : 'none';
-    });
-  });
-  
-// === Drawer logic ===
-(function(){
-  const overlay = document.getElementById('itemOverlay');
-  const drawer  = document.getElementById('itemDrawer');
-  const imgEl   = document.getElementById('detailImg');
-  const titleEl = document.getElementById('detailTitle');
-  const priceEl = document.getElementById('detailPrice');
-  const descEl  = document.getElementById('detailDesc');
-  const backBtn = document.getElementById('drawerBack');
+                <div class="skill-category reveal" style="transition-delay: 200ms;">
+                    <h3>Databases & Cloud</h3>
+                    <div class="tags">
+                        <span class="tag">Microsoft SQL Server</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">SQLite</span>
+                        <span class="tag">Azure</span>
+                        <span class="tag">DevOps System</span>
+                    </div>
+                </div>
 
-  function openDrawer({name, price, img, desc}){
-    titleEl.textContent = name || '';
-    priceEl.textContent = price || '';
-    descEl.textContent  = desc || '';
-    imgEl.src = img || window.PLACEHOLDER_IMG;
-    imgEl.alt = name || 'Item image';
-    overlay.classList.add('show');
-    overlay.setAttribute('aria-hidden','false');
-  }
-  function closeDrawer(){
-    overlay.classList.remove('show');
-    overlay.setAttribute('aria-hidden','true');
-  }
-  overlay.addEventListener('click', closeDrawer);
-  backBtn.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape') closeDrawer();
-  });
+                <div class="skill-category reveal" style="transition-delay: 300ms;">
+                    <h3>Data Science & AI</h3>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">Pandas / NumPy</span>
+                        <span class="tag">Chatbot Tech (Dialogflow)</span>
+                        <span class="tag">NLP</span>
+                    </div>
+                </div>
 
-  // Event delegation for cards
-  document.addEventListener('click', (e)=>{
-    const card = e.target.closest('.card');
-    if(!card) return;
-    const payload = {
-      name: card.getAttribute('data-name'),
-      price: card.getAttribute('data-price'),
-      img: card.getAttribute('data-img'),
-      desc: card.getAttribute('data-desc')
-    };
-    openDrawer(payload);
-  });
-})();
+                <div class="skill-category full-width reveal" style="transition-delay: 400ms;">
+                    <h3>Business Analysis & Soft Skills</h3>
+                    <div class="tags">
+                        <span class="tag">Stakeholder Engagement</span>
+                        <span class="tag">Requirement Gathering</span>
+                        <span class="tag">Technical Communication</span>
+                        <span class="tag">Documentation</span>
+                        <span class="tag">Problem-Solving</span>
+                        <span class="tag">Process Improvement</span>
+                        <span class="tag">Agile Methodologies</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-</script>
+        <!-- Experience Section -->
+        <section id="experience" class="section experience-section">
+            <h2 class="section-title reveal">Work <span class="text-accent">Experience</span></h2>
+            <div class="timeline">
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Sep 2025 - Present</span>
+                        <h3>Senior Software Developer</h3>
+                        <h4>Link Solutions Jordan / System integrator company</h4>
+                        <ul>
+                            <li>Designing and implementing robust backend systems using .NET Core and modern
+                                architectural patterns.</li>
+                            <li>Developing and optimizing RESTful APIs to ensure high performance, scalability, and
+                                security.</li>
+                            <li>Collaborating with cross-functional teams to integrate systems and deliver end-to-end
+                                solutions.</li>
+                            <li>Participating in system architecture decisions, aligning with business and technical
+                                requirements.</li>
+                            <li>Enhancing database performance through efficient design and SQL Server query
+                                optimization.</li>
+                            <li>Supporting deployment, troubleshooting, and continuous improvement of existing systems.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">March 2025 - June 2025</span>
+                        <h3>Senior .Net Developer (Volunteer)</h3>
+                        <h4>Iman For Education and Vocational Training</h4>
+                        <p>Backend team lead overseeing system architecture design and comprehensive database ERD
+                            creation. Guided the team in developing a .NET Core project featuring a full suite of
+                            RESTful APIs for CRUD data operations.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">December 2024 - Sep 2025</span>
+                        <h3>Senior Software Developer</h3>
+                        <h4>Sama Telecom</h4>
+                        <p>Contributed to JoTrack System (transportation management) actively collaborating with
+                            stakeholders to gather business requirements and document processes. Utilized Qgis, ASP.NET
+                            MVC/Core, Knockout.js, Blazor, and Azure DevOps.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">April 2023 - Aug 2023</span>
+                        <h3>Freelance Developer</h3>
+                        <h4>Freelance projects</h4>
+                        <p>Executed an Arduino project involving stakeholder collaboration to meet business goals,
+                            participating in the full cycle of development and testing.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Feb 2023 - April 2023</span>
+                        <h3>Training For Dynamic 365</h3>
+                        <h4>Pioneers IT & Business Consulting</h4>
+                        <p>Focused on MS Dynamics 365, collaborating on client data portals and financial reports,
+                            effectively bridging the gap between business requirements and technical execution.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Mar 2021 - Dec 2022</span>
+                        <h3>Senior Software Developer</h3>
+                        <h4>Minerets Tech</h4>
+                        <p>Led software project discussions and stakeholder engagement. Guided junior developers in
+                            understanding requirements and ensuring robust testing practices using ASP.NET Core, MVC,
+                            Sencha, SQLITE, and DevOps.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Sep 2019 - Oct 2020</span>
+                        <h3>Senior Software Developer</h3>
+                        <h4>Omicron Solutions JO</h4>
+                        <p>Led Maf development initiatives focused on high-quality architecture. Worked closely with
+                            customers to align development with business goals, ensuring compliance with functional
+                            specifications.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jan 2017 - Aug 2019</span>
+                        <h3>Junior Software Developer</h3>
+                        <h4>Acacus Group</h4>
+                        <p>Contributed to a transportation system using ASP.NET and C#. Played a key role in documenting
+                            processes and gathering business needs using Kendo Telerik, Knockout.js, and Entity
+                            Framework.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Oct 2015 - May 2016</span>
+                        <h3>Asp.net Developer</h3>
+                        <h4>Atlas Group Limited</h4>
+                        <p>Developed a web application for Q&A with multimedia features, converting data to JSON files
+                            for Android development and rigorously testing outputs.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Jan 2015 - Aug 2015</span>
+                        <h3>Asp.net Developer</h3>
+                        <h4>Joval Continuous Monitoring</h4>
+                        <p>Built a C# and OOP-based ERP web application with reporting capabilities, focusing on code
+                            quality, error remedy, and adherence to guidelines using Web Forms and SQL Server.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section education-section">
+            <h2 class="section-title reveal">Education & <span class="text-accent">Thesis</span></h2>
+            <div class="edu-grid">
+
+                <div class="edu-card reveal">
+                    <div class="edu-header">
+                        <i class="ph ph-student"></i>
+                        <span class="edu-date">Sep 2020 - 2024</span>
+                    </div>
+                    <h3>Master's Degree</h3>
+                    <h4>German Jordanian University</h4>
+                    <div class="thesis-box mt-4">
+                        <h5 class="text-accent mb-2">Master Thesis</h5>
+                        <p class="text-sm font-semibold mb-2">Machine Learning Approach for Cluster Head Selection in
+                            Internet of Things-Based Wireless Sensor Network</p>
+                        <p class="text-sm">Focused on optimizing WSNs in IoT environments through intelligent cluster
+                            head selection using ML algorithms. Proposed predictive models evaluating residual energy,
+                            node centrality, and node density to improve energy efficiency and extend network lifetime
+                            by up to 25%.</p>
+                    </div>
+                </div>
+
+                <div class="edu-card reveal" style="transition-delay: 100ms;">
+                    <div class="edu-header">
+                        <i class="ph ph-graduation-cap"></i>
+                        <span class="edu-date">2010 - 2015</span>
+                    </div>
+                    <h3>Bachelor of Computer Science</h3>
+                    <h4>University of Jordan</h4>
+                    <div class="thesis-box mt-4">
+                        <h5 class="text-accent mb-2">Core Coursework & Foundations</h5>
+                        <p class="text-sm">Developed a strong foundation in software engineering principles, algorithms,
+                            data structures, and object-oriented programming. Engaged in various academic projects that
+                            solidified my understanding of web development, database management systems (SQL), and
+                            foundational programming languages like C++ and Java. This rigorous academic program
+                            established the core analytical and problem-solving skills necessary for my successful
+                            career in software development.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section id="recommendations" class="section recommendations-section">
+            <h2 class="section-title reveal">Client & <span class="text-accent">Peer Words</span></h2>
+            <div class="reco-grid">
+
+                <div class="reco-card reveal">
+                    <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                    <p class="reco-text">
+                        "I have worked with Bilal long enough to see passion, persistence and love for learning... my
+                        interactions with him and what I used to hear from his supervisor were about how he managed to
+                        learn, gain new skills, and excel in his work. None of this would have been possible, if he
+                        didn't have the self-motivation and passion to develop."
+                    </p>
+                    <div class="reco-author">
+                        <h4>Wesam Al-Issa</h4>
+                        <p>HR Manager</p>
+                        <span class="reco-date">04/30/2023</span>
+                    </div>
+                </div>
+
+                <div class="reco-card reveal" style="transition-delay: 100ms;">
+                    <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                    <p class="reco-text">
+                        "Bilal has been an invaluable member of our team, particularly from a quality assurance
+                        perspective. His active participation and engagement in discussions while fixing bugs have been
+                        extremely valuable."
+                    </p>
+                    <div class="reco-author">
+                        <h4>Buthaina Malouf</h4>
+                        <p>Quality Assurance Manager, Minerets Tech</p>
+                        <span class="reco-date">04/16/2023</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#" class="logo">BA<span class="text-accent">.</span></a>
+            <p>Designed and built for excellence in software development.</p>
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/in/bilal-al-mohammad-50ab8ba3/" target="_blank" title="LinkedIn"><i
+                        class="ph ph-linkedin-logo"></i></a>
+                <a href="https://github.com/bilal0106" target="_blank" title="GitHub"><i class="ph ph-github-logo"></i></a>
+                <a href="https://stackoverflow.com/search?q=user%3ABilal+dandashi" target="_blank" title="Stack Overflow"><i class="ph ph-stack-overflow-logo"></i></a>
+                <a href="mailto:Bilal.dandashi.92@gmail.com" title="Email"><i class="ph ph-envelope-simple"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Belal Al Mohammad. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
